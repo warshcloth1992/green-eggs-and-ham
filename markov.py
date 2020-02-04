@@ -49,15 +49,25 @@ def make_chains(text_string):
 
     chains = {}
     #make dictionary for tuple and list
-    filename = open(file_path).read() 
+    filename = open(text_string).read() 
     #assign var to open txt file and returning a string
     words = filename.split()
     #asssign a var to list and split string at all blank space
-    print(words)
-    for word in words:
-        #creating a loop for 
+   
+    
+    for word in range(len(words)-1):
+        #creating a loop over words to find word and it's 
 
-    return chains
+        key = (words[word], words[word + 1])
+        val = words[word+2]
+        # print(val)
+    #put key and val into chains
+    """by signing key and val to chains somehow: chains = {key: val} this should give us a dictionary"""
+       
+    return 
+
+
+make_chains("green-eggs.txt")
 
 
 def make_text(chains):
