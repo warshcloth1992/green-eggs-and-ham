@@ -16,10 +16,10 @@ def open_and_read_file(file_path):
     #assigning var to opened txt file and returning a string
     return(filename)
     #returning the string
-    print(filename)
+    #print(filename)
 
 
-open_and_read_file("green-eggs.txt")
+#open_and_read_file("green-eggs.txt")
 
 
 def make_chains(text_string):
@@ -42,30 +42,35 @@ def make_chains(text_string):
 
         >>> chains[('hi', 'there')]
         ['mary', 'juanita']
-        
         >>> chains[('there','juanita')]
         [None]
     """
 
     chains = {}
     #make dictionary for tuple and list
-    filename = open(text_string).read() 
+    filename = open_and_read_file("green-eggs.txt")
     #assign var to open txt file and returning a string
     words = filename.split()
     #asssign a var to list and split string at all blank space
-    
     for word in range(len(words)-2):
-        #creating a loop over words to find word and it's 
+        #creating a loop to iterate through the range through the length of words up until the last two words.
 
         key = (words[word], words[word + 1])
+        #assigning the var key to the first two words in list
         val = words[word+2]
+        #assigning the val to the third word in list
         # print(key)
         # print(val)
-        if key not in chains:
+        if key not in chains: 
+            #if the first two words(key) not in the dictionary
             chains[key] = []
-
+            # added it to chains 
         chains[key].append(val)
-    print(chains)
+        #added the content in val to the key in chains to complete the dictionary 
+        #with both {key: val}
+
+    return chains
+    #print(chains)
 
 
     #put key and val into chains
@@ -74,15 +79,47 @@ def make_chains(text_string):
     #return chains
 
 
-make_chains("green-eggs.txt")
+#ake_chains()
 
 
 def make_text(chains):
     """Return text from chains."""
 
     words = []
+    
 
     # your code goes here
+    
+    chains = make_chains("green-eggs.txt")
+    #calling the dictionary we made in make_chains and assigning it to the var
+    
+    item = choice(list(chains.keys()))
+    #iterate through the dictionary. Make that a list. randomly choosing an item
+    
+    key = [item[0], item[1]]
+    #assigning the first two items to key
+    value = choice(chains[item])
+    #assigning a random item at index 2 of chains to value
+    #print(key)
+
+    #print(value)
+    # while value != None:
+    while True:
+        #words.append(key)
+        words.append(value)
+        key = (key[1], value)
+        if chains.get(key, None):
+            value = choice(chains[key])
+        else:
+            break
+            # value = None
+    
+    #print(words)    
+    #print()
+    # Keep looping until we reach a value of None
+    # (which would mean it was the end of our original text)
+    # Note that for long texts (like a full book), this might mean
+    # it would run for a very long time.
 
     return " ".join(words)
 
@@ -90,10 +127,10 @@ def make_text(chains):
 input_path = "green-eggs.txt"
 
 # Open the file and turn it into one long string
-input_text = open_and_read_file(input_path)
+input_text = open_and_read_file("green-eggs.txt")
 
 # Get a Markov chain
-chains = make_chains(input_text)
+chains = make_chains("green-eggs.txt")
 
 # Produce random text
 random_text = make_text(chains)
